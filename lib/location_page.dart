@@ -14,6 +14,15 @@ class LocationPage extends StatefulWidget {
 
 class _LocationPageState extends State<LocationPage> {
   StreamSubscription<Position>? _positionStream;
+
+  @override
+  void initState() {
+    LocationService().getCurrentPosition().then((value) {
+      print("init state positon $value");
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
