@@ -14,10 +14,12 @@ class LocationPage extends StatefulWidget {
 
 class _LocationPageState extends State<LocationPage> {
   StreamSubscription<Position>? _positionStream;
+  Position? _position;
 
   @override
   void initState() {
     LocationService().getCurrentPosition().then((value) {
+      _position = value;
       print("init state positon $value");
     });
     super.initState();
@@ -32,15 +34,18 @@ class _LocationPageState extends State<LocationPage> {
       body: Center(
         child: Column(
           children: [
-            FutureBuilder(
-                future: LocationService().getCurrentPosition(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data.toString());
-                  } else {
-                    return Text("NO LOCATION");
-                  }
-                }),
+            _position != null
+                ? Text("${_position.toString()}")
+                : Text("No position"),
+            // FutureBuilder(
+            //     future: LocationService().getCurrentPosition(),
+            //     builder: (context, snapshot) {
+            //       if (snapshot.hasData) {
+            //         return Text(snapshot.data.toString());
+            //       } else {
+            //         return Text("NO LOCATION");
+            //       }
+            //     }),
             TextButton(
               onPressed: () {
                 LocationService().getCurrentPosition().then((value) {
