@@ -66,23 +66,23 @@ class LocationService {
   Future<Position?> getCurrentPosition() async {
     LocationPermission permission = await handlePermission();
     Position? position;
-    Position? lastKnownPosition;
+    // Position? lastKnownPosition;
     if (permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse) {
       // if (Platform.isIOS) {
       //   return await firstIosPosition();
       // } else {
       try {
-        lastKnownPosition = await _geolocatorPlatform.getLastKnownPosition();
-        if (lastKnownPosition != null) {
-          position = lastKnownPosition;
-          return position;
-        } else {
-          position = await _geolocatorPlatform.getCurrentPosition(
-            locationSettings: setupLocationSettings(),
-          );
-          return position;
-        }
+        // lastKnownPosition = await _geolocatorPlatform.getLastKnownPosition();
+        // if (lastKnownPosition != null) {
+        //   position = lastKnownPosition;
+        //   return position;
+        // } else {
+        position = await _geolocatorPlatform.getCurrentPosition(
+          locationSettings: setupLocationSettings(),
+        );
+        return position;
+        //   }
       } catch (e) {
         print("location error: $e");
       }

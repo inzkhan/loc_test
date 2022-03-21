@@ -19,7 +19,9 @@ class _LocationPageState extends State<LocationPage> {
   @override
   void initState() {
     LocationService().getCurrentPosition().then((value) {
-      _position = value;
+      setState(() {
+        _position = value;
+      });
       print("init state positon $value");
     });
     super.initState();
@@ -49,25 +51,15 @@ class _LocationPageState extends State<LocationPage> {
             TextButton(
               onPressed: () {
                 LocationService().getCurrentPosition().then((value) {
+                  setState(() {
+                    _position = value;
+                  });
+
                   print("Pos $value");
                 });
               },
-              child: Text("Fetch Location"),
+              child: Text("Fetch Latest Location"),
             ),
-            TextButton(
-              onPressed: () {
-                _positionStream =
-                    LocationService().locationStream.listen((event) {
-                  print("lOCATION STREAM $event");
-                });
-              },
-              child: Text("Fetch STREAM OF LOC"),
-            ),
-            TextButton(
-                onPressed: () {
-                  _positionStream?.cancel();
-                },
-                child: Text("Stop stream"))
           ],
         ),
       ),
