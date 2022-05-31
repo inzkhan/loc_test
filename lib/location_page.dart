@@ -12,7 +12,8 @@ class LocationPage extends StatefulWidget {
   State<LocationPage> createState() => _LocationPageState();
 }
 
-class _LocationPageState extends State<LocationPage> {
+class _LocationPageState extends State<LocationPage>
+    with WidgetsBindingObserver {
   StreamSubscription<Position>? _positionStream;
   Position? _position;
 
